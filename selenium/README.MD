@@ -1,0 +1,1 @@
+# Số Threads nên để bằng ( CPU core * 2 )
