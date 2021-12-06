@@ -1,0 +1,1 @@
+# khi connect với --- your application --- thì phải insert dữ liệu thì database, collection mới được tạo

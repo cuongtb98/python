@@ -1,28 +1,68 @@
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+import pymongo
+from pymongo import collection
+from setting import *
+import time
 
-print('Enter the gmailid and password')
-gmailId, passWord = map(str, input().split())
+start_time = time.time()
 try:
-	driver = webdriver.Chrome(ChromeDriverManager().install())
-	driver.get(r'https://accounts.google.com/signin/v2/identifier?continue='+\
-	'https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1'+\
-	'&flowName=GlifWebSignIn&flowEntry = ServiceLogin')
-	driver.implicitly_wait(15)
+    myclient = pymongo.MongoClient(f"mongodb+srv://{CONNECT['user']}:{CONNECT['password']}@shop.rpgea.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    print("Connect success")
+except NameError:
+    print("Connect error: ", NameError)
+    exit()
 
-	loginBox = driver.find_element_by_xpath('//*[@id ="identifierId"]')
-	loginBox.send_keys(gmailId)
+mydatabase = myclient['mydatabase']
+collection = mydatabase["customers"]
+mylist = [
+  { "name": "Amy", "address": "Apple st 652"},
+  { "name": "Hannah", "address": "Mountain 21"},
+  { "name": "Michael", "address": "Valley 345"},
+  { "name": "Sandy", "address": "Ocean blvd 2"},
+  { "name": "Betty", "address": "Green Grass 1"},
+  { "name": "Richard", "address": "Sky st 331"},
+  { "name": "Susan", "address": "One way 98"},
+  { "name": "Vicky", "address": "Yellow Garden 2"},
+  { "name": "Ben", "address": "Park Lane 38"},
+  { "name": "William", "address": "Central st 954"},
+  { "name": "Chuck", "address": "Main Road 989"},
+  { "name": "Viola", "address": "Sideway 1633"}
+]
+# insert data
+# collection.insert_many(mylist)
+# for x in collection.find({},{ "name": 1, "address": 1 }):
+#   print(x)
 
-	nextButton = driver.find_elements_by_xpath('//*[@id ="identifierNext"]')
-	nextButton[0].click()
+# find regex
+# myquery = { "address": { "$regex": "M.*n" } }
+# mydoc = collection.find(myquery)
+# for x in mydoc:
+#     print(x)
 
-	passWordBox = driver.find_element_by_xpath(
-		'//*[@id ="password"]/div[1]/div / div[1]/input')
-	passWordBox.send_keys(passWord)
+# Sort
+# mydoc = collection.find().sort("name")
+# for x in mydoc:
+#     print(x)
 
-	nextButton = driver.find_elements_by_xpath('//*[@id ="passwordNext"]')
-	nextButton[0].click()
+# delete
+# myquery = { "address": {"$regex": "^O"} }
+# collection.delete_many(myquery)
+# mydoc = collection.find()
+# for x in mydoc:
+#     print(x)
 
-	print('Login Successful...!!')
-except:
-	print('Login Failed')
+# Update
+# myquery = { "address": { "$regex": "^S" } }
+# newvalues = { "$set": { "name": "Minnie" } }
+# x = collection.update_many(myquery, newvalues)
+# print(x.modified_count, "documents updated.")
+# mydoc = collection.find()
+# for x in mydoc:
+#     print(x)
+
+# Limit
+mydoc = collection.find().limit(5)
+for x in mydoc:
+    print(x)
+
+print("--- %s ms ---" % (time.time() - start_time))
+
