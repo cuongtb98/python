@@ -1,4 +1,4 @@
 env
 crawl/mocha/main
-dbms/mongodb/setting.py
+dbms/mongodb/setting
 #
