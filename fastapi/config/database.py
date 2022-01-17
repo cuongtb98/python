@@ -1,17 +1,14 @@
 import pymongo
+from config.setting import CONNECT
 
+def connect():
+    try:
+        client = pymongo.MongoClient(f"mongodb+srv://{CONNECT['user']}:{CONNECT['password']}@shop.rpgea.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        print("Connect success")
+    except NameError:
+        print("Connect error: ", NameError)
+        exit()
+    db_cources = client['cources']
+    cl_software_engineer = db_cources['software_engineer']
+    return cl_software_engineer
 
-
-client = pymongo.MongoClient("mongodb+srv://cuong:1234@shop.rpgea.mongodb.net")
-# db = client.test1
-# collection = db["test1"]
-
-# data = {"id": 1, "name": "duy", "age": 22}
-# collection.insert_one(data)
-
-# print(collection)
-
-pp = client.test
-bb = pp.list_collection_names()
-
-print(bb)
