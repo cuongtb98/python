@@ -34,10 +34,6 @@ def main():
     p3.join()
     p4.join()
     data.close_file()
-    # with Pool(processes=4) as pool:
 
-    #     # print "[0, 1, 4,..., 81]"
-    #     for i in pool.imap_unordered(f, range(1,5)):
-    #         print(i)
 if __name__ == "__main__": 
     main()
