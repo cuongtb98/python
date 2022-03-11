@@ -1,0 +1,12 @@
+eglfs
+linuxfb
+minimal
+minimalegl
+offscreen
+vnc
+wayland-egl
+wayland 
+wayland-xcomposite-egl 
+wayland-xcomposite-glx
+webgl
+xcb
